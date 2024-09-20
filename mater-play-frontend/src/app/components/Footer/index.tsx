@@ -13,7 +13,7 @@ function Footer (){
                     variant="overline"
                     textAling="center"
                 >
-                    juuuhuh
+                    Mater play
                 </Typography>
                 <Stack
                 direction='row'
