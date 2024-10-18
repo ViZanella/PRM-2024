@@ -1,34 +1,27 @@
 import { Box, Container, Stack, Typography } from "@mui/material"
 import MovieCard from "../MovieCard"
+import { useEffect, useState } from "react";
+import { IMovie } from "../../@libs/axios/types/types";
+import { MoviesService } from "../../sevices/movie-service";
 
-const movies = [
-    {poster : 'house-of-dragons-poster.jpg'},
-    {poster : '2zmTngn1tYC1AvfnrFLhxeD82hz.jpg'},
-    {poster : '7qOSKoOAPgemYhBwbJgBWcCxPWZ.jpg'},
-    {poster : '9h2KgGXSmWigNTn3kQdEFFngj9i.jpg'},
-    {poster : 'cQLJT6hTXio0md94oBsSWADOECf.jpg'},
-    {poster : 'dYwihSnQmCVuIQbuG9n18BK5Iqd.jpg'},
-    {poster : 'gyEnhITeHLky85XJxuTPqniPrzE.jpg'},
-    {poster : 'mAbuZuS4CqlTI6lvWIxPRHppbVs.jpg'},
-    {poster : 'xeeF1KWSz8EEUl8RBz64qRnxm7V.jpg'},
-    {poster : 'xNSsIyZcbESWBm42VTo09zbjS6s.jpg'},
-    {poster : 'house-of-dragons-poster.jpg'},
-    {poster : '2zmTngn1tYC1AvfnrFLhxeD82hz.jpg'},
-    {poster : '7qOSKoOAPgemYhBwbJgBWcCxPWZ.jpg'},
-    {poster : '9h2KgGXSmWigNTn3kQdEFFngj9i.jpg'},
-    {poster : 'cQLJT6hTXio0md94oBsSWADOECf.jpg'},
-    {poster : 'dYwihSnQmCVuIQbuG9n18BK5Iqd.jpg'},
-    {poster : 'gyEnhITeHLky85XJxuTPqniPrzE.jpg'},
-    {poster : 'mAbuZuS4CqlTI6lvWIxPRHppbVs.jpg'},
-    {poster : 'xeeF1KWSz8EEUl8RBz64qRnxm7V.jpg'},
-    {poster : 'xNSsIyZcbESWBm42VTo09zbjS6s.jpg'},
-]
 type SectionProps = {
     title: string;
 }
 function Section ({
     title
 }:SectionProps){
+
+    const[movies, setMovies]=useState<IMovie[]>([]);
+
+    useEffect(()=>{
+    //Executa o que está dntro quando carrega o componente
+
+    MoviesService.getMovies()
+    .then(result =>{
+        setMovies(result)
+    })
+    },[]);
+
     return(
         <Box>
             <Container>
@@ -50,7 +43,7 @@ function Section ({
                 }}
                 >
                 {movies.map(item =>(
-                   <MovieCard poster={'assets/' + item.poster}/>
+                   <MovieCard key={item.id} poster={'assets/' + item.poster}/>
                 ))}
                 </Stack>
             </Container>
