@@ -16,4 +16,5 @@ export class Movie {
 
     @Column({nullable: false })
     poster: string;
+  static id: string;
 }

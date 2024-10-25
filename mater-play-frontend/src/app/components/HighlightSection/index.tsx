@@ -65,7 +65,8 @@ function HighlightSection(){
                             variant="outlined"
                             >Assistir</Button>
 {/* Botão "Detalhes" */}
-                            <button>Detalhes</button>
+                            <Button 
+                            variant="contained">Detalhes</Button>
                         </Stack>
                     </Stack>
                 </Stack>
