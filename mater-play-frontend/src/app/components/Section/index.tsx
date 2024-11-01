@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { IMovie } from "../../@libs/axios/types/types";
 import { MoviesService } from "../../sevices/movie-service";
 
+
 type SectionProps = {
     title: string;
 }
@@ -15,11 +16,12 @@ function Section ({
 
     useEffect(()=>{
     //Executa o que está dntro quando carrega o componente
-
-    MoviesService.getMovies()
+    if(category.id){
+    MoviesService.getCategoryId(category.id)
     .then(result =>{
         setMovies(result)
-    })
+    });
+    }
     },[]);
 
     return(
@@ -32,7 +34,7 @@ function Section ({
                     padding:'2 rem'
                 }}
                 >
-                    {title}
+                    {category.name}
                 </Typography>
                 <Stack
                 direction="row"

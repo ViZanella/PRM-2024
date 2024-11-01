@@ -1,25 +1,43 @@
+import { useEffect, useState } from "react";
 import Footer from "./app/components/Footer" // Importa o componente de rodapé
 import Header from "./app/components/Header" // Importa o componente de cabeçalho
 import HighlightSection from "./app/components/HighlightSection"; // Importa a seção de destaque
-import Section from "./app/components/Section"; // Importa o componente de seções personalizadas
+import { CategoryService } from "./app/sevices/category-service";
+import { ICategory } from "./app/@libs/axios/types/types";
 
-function App() {
+function App(){
+
+  const[categories, setCategories] = useState<ICategory[]>([])
+
+  useEffect(()=>{
+    CategoryService.getAll()
+    .then(result => {
+      console.log('=>', result)
+      setCategories(result.data)
+    })
+    .catch(error =>{
+      console.log(error)
+    })
+  }, [])
 
   return (
-// Envolve todo o conteúdo da aplicação dentro de uma div com a classe "wrapper"
+
     <div className="wrapper">
-{/* Componente de cabeçalho */}
+
       <Header />
-{/* Tag <main> que representa o conteúdo principal da página */}
+
         <main
          style={{
-          marginTop:'8rem' // Adiciona um espaçamento superior de 8rem para evitar sobreposição com o cabeçalho fixo
+          marginTop:'8rem' 
          }}>
- {/* Seção de destaque, geralmente com um destaque visual como uma imagem ou descrição */}
+
           <HighlightSection/>
-{/* Componente de seções reutilizáveis com títulos diferentes */}
-        <Section title ="Para você"/>
-        <Section title ="Para toda a familia"/>
+          {
+            categories.map(item =>(
+              <section key={item.Id} title={item.name}/>
+            ))
+          }
+
       </main>
 {/* Componente de rodapé */}
       <Footer />

@@ -8,11 +8,14 @@ export class CategoryService {
     constructor(
         @InjectRepository(Category)
         private repository: Repository<Category>,
-      ) {}
-
+          where: {
+          active: true,
+        }
+      ){}
+  
     findAll(): Promise<Category[]>{
         return this.repository.find();
-}
+    }
     findById(id: number): Promise<Category> {
         return this.repository.findOneBy({ id: id });
     }
@@ -25,4 +28,3 @@ export class CategoryService {
     }
     
   }
-
