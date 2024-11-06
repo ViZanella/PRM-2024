@@ -16,13 +16,12 @@ const darkTheme = createTheme({
     main : '#fff' // Define a cor principal como branco, aplicável ao texto e ícones
   }}
 })
-// Rende o componente `App` no elemento com o ID 'root' do HTML
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-{/* O `ThemeProvider` fornece o tema criado (darkTheme) a toda a aplicação */}
+
     <ThemeProvider theme={darkTheme}>
-{/* CssBaseline é um componente do Material-UI que normaliza os estilos CSS, 
-          garantindo uma base consistente para o layout */}
+
       <CssBaseline/>
     <App />
     </ThemeProvider>

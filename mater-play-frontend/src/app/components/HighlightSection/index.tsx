@@ -1,7 +1,27 @@
 // Importando componentes do Material-UI
 import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { MovieService } from "../../sevices/movie-service";
+import { IMovie } from "../../@libs/axios/types/types";
 
 function HighlightSection(){
+
+const params =useParams();
+const [movie,setMovies]= useState<IMovie>({} as IMovie);
+
+useEffect(()=>{
+
+    if(params.id){
+        MovieService.getMoviesById(params.id)
+        .then(result =>{
+            if (result) setMovies(result);
+        })
+        .catch(error=>){
+            console.log('Pau: ',Error)
+        }
+    }
+},[params]);
+
     return(
 // Box externo para encapsular toda a seção de destaque
         <Box>
@@ -11,7 +31,7 @@ function HighlightSection(){
                 <Stack
                 direction = "row">
 {/* Imagem do pôster da série/filme */}
-                    <img src = "assets/house-of-dragons-poster.jpg"/>
+                    <img src ='assets/${movie.post}'/>
 {/* Stack interna para organizar o texto e botões verticalmente */}
                     <Stack
                     sx={{
@@ -23,7 +43,7 @@ function HighlightSection(){
  {/* Título da série/filme */}
                         <Typography
                         variant="h4">
-                            A casa do dragão
+                            {movie.title}
                         </Typography>
  {/* Informações adicionais: classificação e gêneros */}
                         <Typography
@@ -38,7 +58,7 @@ function HighlightSection(){
                             marginRight:'0.3rem' // Espaçamento à direita
                            }}
                            >
-                            16 {/* Classificação etária */}
+                            {movie.ageRating} {/* Classificação etária */}
                             </samp>
                             Aventura, fantasia, Ação
                         </Typography>
@@ -54,8 +74,7 @@ function HighlightSection(){
  //Corpo da sinopse 
                         variant="body2"
                         >
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio asperiores laborum, nihil non temporibus voluptatibus laudantium dolore at blanditiis, qui perspiciatis optio pariatur consequuntur quidem possimus in soluta distinctio. Voluptatum.
-                        </Typography>
+                         {movie.description}</Typography>
 {/* Stack horizontal para botões */}
                         <Stack
                         direction="row"

@@ -1,5 +1,6 @@
+import { Category } from "src/categories/category-enity";
 import{Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
-import { Category } from "./category-enity";
+
 
 @Entity('movie')
 export class Movie {
